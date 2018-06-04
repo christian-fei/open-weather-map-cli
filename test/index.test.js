@@ -42,13 +42,8 @@ test('weatherFor "Trento', done => {
 })
 
 test('toReport "Trento", Clear', () => {
-  const rows = toReport({
-    place: 'Trento',
-    condition: {
-      type: 'Clear',
-      description: 'clear sky'
-    }
-  })
+  const place = clearTrento()
+  const rows = toReport(place)
 
   assert.deepEqual(rows, [
     '🏡  Trento',
@@ -58,13 +53,8 @@ test('toReport "Trento", Clear', () => {
 })
 
 test('toReport "Trento", Clouds', () => {
-  const rows = toReport({
-    place: 'Trento',
-    condition: {
-      type: 'Clouds',
-      description: 'scattered clouds'
-    }
-  })
+  const place = cloudyTrento()
+  const rows = toReport(place)
 
   assert.deepEqual(rows, [
     '🏡  Trento',
@@ -74,13 +64,8 @@ test('toReport "Trento", Clouds', () => {
 })
 
 test('toReport "Moscow", Rain', () => {
-  const rows = toReport({
-    place: 'Moscow',
-    condition: {
-      type: 'Rain',
-      description: 'light intensity shower rain'
-    }
-  })
+  const place = rainyMoscow(9)
+  const rows = toReport(place)
 
   assert.deepEqual(rows, [
     '🏡  Moscow',
@@ -90,3 +75,33 @@ test('toReport "Moscow", Rain', () => {
 })
 
 test('placeholder', Function.prototype)
+
+function clearTrento () {
+  return {
+    place: 'Trento',
+    condition: {
+      type: 'Clear',
+      description: 'clear sky'
+    }
+  }
+}
+
+function cloudyTrento () {
+  return {
+    place: 'Trento',
+    condition: {
+      type: 'Clouds',
+      description: 'scattered clouds'
+    }
+  }
+}
+
+function rainyMoscow () {
+  return {
+    place: 'Moscow',
+    condition: {
+      type: 'Rain',
+      description: 'light intensity shower rain'
+    }
+  }
+}
