@@ -29,8 +29,6 @@ function weatherFor (place, apiKey = process.env.npm_config_open_weather_map_api
         if (err) return reject(err)
         if (!string) return reject(string)
         const json = JSON.parse(string)
-        // console.log('json', json)
-        if (!json) return reject(json)
         const weather = toModel(json)
         resolve(weather)
       })
