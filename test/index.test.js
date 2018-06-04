@@ -74,6 +74,25 @@ test('toReport "Moscow", Rain', () => {
   ])
 })
 
+test('toReport unhandled condition, add PR', () => {
+  const place = {
+    place: 'Unknown',
+    condition: {
+      type: 'Unknown',
+      description: 'unknown'
+    }
+  }
+  const rows = toReport(place)
+
+  assert.deepEqual(rows, [
+    '🏡  Unknown',
+    '📖  Unknown, unknown',
+    'unhandled condition: Unknown',
+    {'type': 'Unknown', 'description': 'unknown'},
+    '🙏  open a PR on https://github.com/christian-fei/open-weather-map-cli'
+  ])
+})
+
 test('placeholder', Function.prototype)
 
 function clearTrento () {

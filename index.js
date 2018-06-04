@@ -75,7 +75,10 @@ function toReport (weather) {
   acc.push(`📖  ${condition.type}, ${condition.description}`)
 
   if (conditions[condition.type]) { acc.push(conditions[condition.type]) }
-  if (!conditions[condition.type]) { acc.push(`unhandled condition: ${condition.type}`, condition) }
+  if (!conditions[condition.type]) {
+    acc.push(`unhandled condition: ${condition.type}`, condition)
+    acc.push('🙏  open a PR on https://github.com/christian-fei/open-weather-map-cli')
+  }
 
   return acc
 }
