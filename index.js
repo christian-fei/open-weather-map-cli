@@ -9,7 +9,7 @@ if (require.main === module) {
     weatherFor,
     toBuffer,
     toString,
-    toModel,
+    toWeather,
     toReport
   }
 }
@@ -29,7 +29,7 @@ function weatherFor (place, apiKey = process.env.npm_config_open_weather_map_api
         if (err) return reject(err)
         if (!string) return reject(string)
         const json = JSON.parse(string)
-        const weather = toModel(json)
+        const weather = toWeather(json)
         resolve(weather)
       })
     })
@@ -49,7 +49,7 @@ function toString (stream, fn) {
   })
 }
 
-function toModel (json) {
+function toWeather (json) {
   const toCondition = json => ({
     type: json.weather[0].main,
     description: json.weather[0].description

@@ -1,17 +1,17 @@
 /* globals test */
 
 const assert = require('assert')
-const { toModel, toString, toBuffer, main, weatherFor, toReport } = require('..')
+const { toWeather, toString, toBuffer, main, weatherFor, toReport } = require('..')
 
 test('exports', () => {
-  assert.ok(toModel)
+  assert.ok(toWeather)
   assert.ok(toString)
   assert.ok(toBuffer)
   assert.ok(main)
 })
 
-test('toModel', () => {
-  const model = toModel({
+test('toWeather', () => {
+  const model = toWeather({
     name: 'Trento',
     weather: [{
       main: 'Clear',
