@@ -24,3 +24,14 @@ open-weather-map-cli Rome
 > 📖  Clear, clear sky
 > ☀️  right now
 ```
+
+### alternative (npx)
+
+with `npx`
+
+```
+npx open-weather-map-cli Rome
+> 🏡  Rome
+> 📖  Clear, clear sky
+> ☀️  right now
+```
