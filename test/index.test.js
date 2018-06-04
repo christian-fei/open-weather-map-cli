@@ -9,6 +9,8 @@ test('exports', () => {
   assert.ok(toString)
   assert.ok(toBuffer)
   assert.ok(main)
+  assert.ok(weatherFor)
+  assert.ok(toReport)
 })
 
 test('toWeather', () => {
