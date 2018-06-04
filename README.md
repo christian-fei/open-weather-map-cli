@@ -10,7 +10,7 @@ set `OPEN_WEATHER_MAP_API_KEY` in the ENV. grab one if you need an api key https
 npm install -g open-weather-map-cli
 ```
 
-## usage
+## usage
 
 `open-weather-map-cli [Place name]`
 
