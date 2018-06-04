@@ -1,6 +1,7 @@
 /* globals test */
 
 const assert = require('assert')
+const execa = require('execa')
 const { toWeather, toString, toBuffer, main, weatherFor, toReport } = require('..')
 
 test('exports', () => {
@@ -91,6 +92,16 @@ test('toReport unhandled condition, add PR', () => {
     {'type': 'Unknown', 'description': 'unknown'},
     '🙏  open a PR on https://github.com/christian-fei/open-weather-map-cli'
   ])
+})
+
+test('uat', done => {
+  execa('npm', ['start']).then(result => {
+    const lines = result.stdout.split('\n')
+    assert.equal(lines[4], '🏡  Trento')
+    assert.ok(/^📖/.test(lines[5]))
+    assert.ok(/right now$/.test(lines[6]))
+    done()
+  })
 })
 
 test('placeholder', Function.prototype)
