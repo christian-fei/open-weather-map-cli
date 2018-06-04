@@ -1,0 +1,1 @@
+console.log(process.env.npm_config_open_weather_map_api_key)
