@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { get } = require('https')
 
 if (require.main === module) {

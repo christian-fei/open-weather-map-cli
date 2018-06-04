@@ -3,6 +3,7 @@
   "version": "1.2.0",
   "description": "",
   "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "start": "node $npm_package_main",
     "test": "m.test"
