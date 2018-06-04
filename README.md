@@ -4,11 +4,15 @@
 
 ![open-weather-map-cli.png](./open-weather-map-cli.png)
 
-set `OPEN_WEATHER_MAP_API_KEY` in the ENV. grab one if you need an api key https://home.openweathermap.org/api_keys 📖
+## installation
 
 ```
 npm install -g open-weather-map-cli
 ```
+
+## configuration
+
+set `OPEN_WEATHER_MAP_API_KEY` in the ENV. grab one if you need an api key https://home.openweathermap.org/api_keys 📖
 
 ## usage
 
