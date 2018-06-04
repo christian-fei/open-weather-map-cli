@@ -1,31 +1,24 @@
 const { get } = require('https')
-// const {promisify} = require('util')
 
 if (require.main === module) {
-  main('Trento', process.env.npm_config_open_weather_map_api_key)
+  const place = process.argv[2] || 'Trento'
+  main(place, process.env.npm_config_open_weather_map_api_key)
 } else {
   module.exports = {
     main,
     weatherFor,
     toBuffer,
     toString,
-    toModel
+    toModel,
+    toReport
   }
 }
 
 function main (place, apiKey = process.env.npm_config_open_weather_map_api_key) {
   weatherFor(place, apiKey)
   .then(weather => {
-    const { condition } = weather
-
-    console.log(`🏡  ${weather.place}\n📖  ${condition.type}, ${condition.description}`)
-    const conditions = {
-      'Clear': '☀️  right now',
-      'Clouds': '☁️  right now'
-    }
-    if (conditions[condition.type]) { console.log(conditions[condition.type]) }
-    if (!conditions[condition.type]) { console.error(`unhandled condition: ${condition.type}`, condition) }
-    // http://openweathermap.org/img/w/01d.png
+    const report = toReport(weather)
+    report.forEach(row => console.log(row))
   })
 }
 
@@ -68,4 +61,21 @@ function toModel (json) {
     place: json.name,
     condition: toCondition(json)
   }
+}
+
+function toReport (weather) {
+  const acc = []
+  const conditions = {
+    'Clear': '☀️  right now',
+    'Clouds': '☁️  right now',
+    'Rain': '☔️  right now'
+  }
+  const { condition } = weather
+  acc.push(`🏡  ${weather.place}`)
+  acc.push(`📖  ${condition.type}, ${condition.description}`)
+
+  if (conditions[condition.type]) { acc.push(conditions[condition.type]) }
+  if (!conditions[condition.type]) { acc.push(`unhandled condition: ${condition.type}`, condition) }
+
+  return acc
 }
