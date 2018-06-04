@@ -2,7 +2,7 @@
 
 > unobtrusive weather report in the terminal
 
-![open-weather-map-cli.png](./open-weather-map-cli.png)
+![open-weather-map-cli.png](https://github.com/christian-fei/open-weather-map-cli/blob/master/open-weather-map-cli.png)
 
 ## installation
 
