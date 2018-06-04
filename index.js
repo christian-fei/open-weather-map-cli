@@ -4,7 +4,7 @@ const { get } = require('https')
 
 if (require.main === module) {
   const place = process.argv[2] || 'Trento'
-  main(place, process.env.npm_config_open_weather_map_api_key)
+  main(place, process.env.OPEN_WEATHER_MAP_API_KEY || process.env.npm_config_open_weather_map_api_key)
 } else {
   module.exports = {
     main,
