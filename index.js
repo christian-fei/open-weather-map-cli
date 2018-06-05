@@ -22,14 +22,14 @@ if (require.main === module) {
   }
 }
 
-function main (place, apiKey = process.env.npm_config_open_weather_map_api_key) {
+function main (place, apiKey = process.env.OPEN_WEATHER_MAP_API_KEY) {
   weatherFor(place, apiKey)
     .then(toReport)
     .then(printReport)
-    .catch(err => console.error(err.message))
+    .catch(err => process.stderr.write(err.message))
 }
 
-function weatherFor (place, apiKey = process.env.npm_config_open_weather_map_api_key) {
+function weatherFor (place, apiKey = process.env.OPEN_WEATHER_MAP_API_KEY) {
   return new Promise((resolve, reject) => {
     get(`https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${apiKey}`, res => {
       if (res.statusCode !== 200) return reject(new Error(PROVIDE_API_KEY_MESSAGE))
@@ -109,6 +109,6 @@ function printReport (report) {
   report.forEach(row => process.stdout.write(`${row}\n`))
 }
 
-process.on('unhandledRejection', err => {
-  console.error(err)
-})
+// process.on('unhandledRejection', err => {
+//   console.error(err)
+// })
