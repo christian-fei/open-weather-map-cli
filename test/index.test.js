@@ -118,10 +118,10 @@ test('toReport unhandled condition, add PR', () => {
   ])
 })
 
-test('uat', done => {
-  execa('npm', ['start']).then(result => {
+test('uat `open-weather-map-cli Rome`', done => {
+  execa('npm', ['start', 'Rome']).then(result => {
     const lines = result.stdout.split('\n')
-    assert.equal(lines[4], '🏡  Trento')
+    assert.equal(lines[4], '🏡  Rome')
     assert.ok(/^📖/.test(lines[5]))
     assert.ok(/right now$/.test(lines[6]))
     done()
