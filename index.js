@@ -64,7 +64,20 @@ function toWeather (json) {
 }
 
 function toReport (weather) {
+  const { condition } = weather
+  const conditionReport = toConditionReport(weather)
+
   const acc = []
+  acc.push(`🏡  ${weather.place}`)
+  acc.push(`📖  ${condition.type}, ${condition.description}`)
+  acc.push(...conditionReport)
+
+  return acc
+}
+
+function toConditionReport (weather) {
+  const acc = []
+  const { condition } = weather
   const conditions = {
     'Clear': '☀️  right now',
     'Clouds': '☁️  right now',
@@ -72,9 +85,6 @@ function toReport (weather) {
     'Mist': '🌫  right now',
     'Thunderstorm': '⛈  right now'
   }
-  const { condition } = weather
-  acc.push(`🏡  ${weather.place}`)
-  acc.push(`📖  ${condition.type}, ${condition.description}`)
 
   if (conditions[condition.type]) { acc.push(conditions[condition.type]) }
   if (!conditions[condition.type]) {
