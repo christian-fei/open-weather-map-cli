@@ -18,10 +18,8 @@ if (require.main === module) {
 
 function main (place, apiKey = process.env.npm_config_open_weather_map_api_key) {
   weatherFor(place, apiKey)
-  .then(weather => {
-    const report = toReport(weather)
-    report.forEach(row => console.log(row))
-  })
+    .then(toReport)
+    .then(printReport)
 }
 
 function weatherFor (place, apiKey = process.env.npm_config_open_weather_map_api_key) {
@@ -93,4 +91,8 @@ function toConditionReport (weather) {
   }
 
   return acc
+}
+
+function printReport (report) {
+  report.forEach(row => process.stdout.write(`${row}\n`))
 }
