@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 const { get } = require('https')
+const PROVIDE_API_KEY_MESSAGE = 'Please provide a valid api key for the https://openweathermap.org api'
 
 if (require.main === module) {
   const place = process.argv[2] || 'Trento'
-  const key = process.env.OPEN_WEATHER_MAP_API_KEY || process.env.npm_config_open_weather_map_api_key
+  const key = process.env.OPEN_WEATHER_MAP_API_KEY
   if (!key) {
-    process.stderr.write('Please provide a valid api key for the https://openweathermap.org api')
+    process.stderr.write(PROVIDE_API_KEY_MESSAGE)
     process.exit(1)
   }
   main(place, key)
@@ -25,20 +26,22 @@ function main (place, apiKey = process.env.npm_config_open_weather_map_api_key) 
   weatherFor(place, apiKey)
     .then(toReport)
     .then(printReport)
+    .catch(err => console.error(err.message))
 }
 
 function weatherFor (place, apiKey = process.env.npm_config_open_weather_map_api_key) {
   return new Promise((resolve, reject) => {
     get(`https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${apiKey}`, res => {
+      if (res.statusCode !== 200) return reject(new Error(PROVIDE_API_KEY_MESSAGE))
       toString(res, (err, string) => {
-        if (err) return reject(err)
-        if (!string) return reject(string)
+        if (err) return reject(new Error(err))
+        if (!string) return reject(new Error(string))
         try {
           const json = JSON.parse(string)
           const weather = toWeather(json)
           resolve(weather)
         } catch (err) {
-          console.error(`an error happened: ${err.message}`, err, string)
+          console.error(`an error happened: ${err.message}`)
         }
       })
     })
@@ -105,3 +108,7 @@ function toConditionReport (weather) {
 function printReport (report) {
   report.forEach(row => process.stdout.write(`${row}\n`))
 }
+
+process.on('unhandledRejection', err => {
+  console.error(err)
+})

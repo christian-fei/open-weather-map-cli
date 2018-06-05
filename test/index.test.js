@@ -119,13 +119,30 @@ test('toReport unhandled condition, add PR', () => {
 })
 
 test('uat `open-weather-map-cli Rome`', done => {
-  execa('npm', ['start', 'Rome']).then(result => {
-    const lines = result.stdout.split('\n')
-    assert.equal(lines[4], '🏡  Rome')
-    assert.ok(/^📖/.test(lines[5]))
-    assert.ok(/right now$/.test(lines[6]))
-    done()
+  process.env.OPEN_WEATHER_MAP_API_KEY = process.env.npm_config_open_weather_map_api_key
+  execa('npm', ['start', 'Rome'])
+  .then(result => {
+    const stdoutlines = result.stdout.split('\n')
+    const stderrlines = result.stderr.split('\n')
+
+    assert.equal(stdoutlines[4], '🏡  Rome')
+    assert.ok(/^📖/.test(stdoutlines[5]))
+    assert.ok(/right now$/.test(stdoutlines[6]))
+    assert.deepEqual(stderrlines, [''])
   })
+  .then(done)
+})
+
+test('uat with invalid api key', done => {
+  process.env.OPEN_WEATHER_MAP_API_KEY = undefined
+
+  execa('npm', ['start', 'Rome'], {
+    env: {}
+  }).then(result => {
+    const stderrlines = result.stderr.split('\n')
+    assert.deepEqual(stderrlines, ['Please provide a valid api key for the https://openweathermap.org api'])
+  })
+  .then(done)
 })
 
 test('placeholder', Function.prototype)
