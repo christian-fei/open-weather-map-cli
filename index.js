@@ -28,9 +28,13 @@ function weatherFor (place, apiKey = process.env.npm_config_open_weather_map_api
       toString(res, (err, string) => {
         if (err) return reject(err)
         if (!string) return reject(string)
-        const json = JSON.parse(string)
-        const weather = toWeather(json)
-        resolve(weather)
+        try {
+          const json = JSON.parse(string)
+          const weather = toWeather(json)
+          resolve(weather)
+        } catch (err) {
+          console.error(`an error happened: ${err.message}`, err)
+        }
       })
     })
   })
