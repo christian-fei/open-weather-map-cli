@@ -77,6 +77,28 @@ test('toReport "Moscow", Rain', () => {
   ])
 })
 
+test('toReport "Moscow", Mist', () => {
+  const place = mistyMoscow(9)
+  const rows = toReport(place)
+
+  assert.deepEqual(rows, [
+    '🏡  Moscow',
+    '📖  Mist, mist',
+    '🌫  right now'
+  ])
+})
+
+test('toReport "Moscow", Thunderstorm', () => {
+  const place = thunderstormyMoscow(9)
+  const rows = toReport(place)
+
+  assert.deepEqual(rows, [
+    '🏡  Moscow',
+    '📖  Thunderstorm, thunderstorm with rain',
+    '⛈  right now'
+  ])
+})
+
 test('toReport unhandled condition, add PR', () => {
   const place = {
     place: 'Unknown',
@@ -134,6 +156,26 @@ function rainyMoscow () {
     condition: {
       type: 'Rain',
       description: 'light intensity shower rain'
+    }
+  }
+}
+
+function mistyMoscow () {
+  return {
+    place: 'Moscow',
+    condition: {
+      type: 'Mist',
+      description: 'mist'
+    }
+  }
+}
+
+function thunderstormyMoscow () {
+  return {
+    place: 'Moscow',
+    condition: {
+      type: 'Thunderstorm',
+      description: 'thunderstorm with rain'
     }
   }
 }
