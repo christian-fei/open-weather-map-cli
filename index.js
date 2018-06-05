@@ -68,7 +68,8 @@ function toReport (weather) {
   const conditions = {
     'Clear': '☀️  right now',
     'Clouds': '☁️  right now',
-    'Rain': '☔️  right now'
+    'Rain': '☔️  right now',
+    'Mist': '🌫  right now'
   }
   const { condition } = weather
   acc.push(`🏡  ${weather.place}`)
