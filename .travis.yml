@@ -3,6 +3,7 @@ node_js:
   - "9"
 script:
 - echo "$NPMRC" >> ~/.npmrc
+- npm start Rome
 - npm t
 deploy:
   provider: npm
