@@ -4,7 +4,12 @@ const { get } = require('https')
 
 if (require.main === module) {
   const place = process.argv[2] || 'Trento'
-  main(place, process.env.OPEN_WEATHER_MAP_API_KEY || process.env.npm_config_open_weather_map_api_key)
+  const key = process.env.OPEN_WEATHER_MAP_API_KEY || process.env.npm_config_open_weather_map_api_key
+  if (!key) {
+    process.stderr.write('Please provide a valid api key for the https://openweathermap.org api')
+    process.exit(1)
+  }
+  main(place, key)
 } else {
   module.exports = {
     main,
