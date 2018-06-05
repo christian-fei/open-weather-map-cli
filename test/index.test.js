@@ -32,18 +32,6 @@ test('toWeather', () => {
   })
 })
 
-test('weatherFor "Trento', done => {
-  weatherFor('Trento')
-  .then(weather => {
-    assert.ok(weather)
-    assert.ok(weather.place)
-    assert.ok(weather.condition)
-    assert.ok(weather.condition.type)
-    assert.ok(weather.condition.description)
-    done()
-  })
-})
-
 test('toReport "Trento", Clear', () => {
   const place = clearTrento()
   const rows = toReport(place)
@@ -118,8 +106,22 @@ test('toReport unhandled condition, add PR', () => {
   ])
 })
 
+test('weatherFor "Trento', done => {
+  assert.ok(process.env.OPEN_WEATHER_MAP_API_KEY)
+
+  weatherFor('Trento')
+  .then(weather => {
+    assert.ok(weather)
+    assert.ok(weather.place)
+    assert.ok(weather.condition)
+    assert.ok(weather.condition.type)
+    assert.ok(weather.condition.description)
+    done()
+  })
+})
+
 test('uat `open-weather-map-cli Rome`', done => {
-  process.env.OPEN_WEATHER_MAP_API_KEY = process.env.npm_config_open_weather_map_api_key
+  assert.ok(process.env.OPEN_WEATHER_MAP_API_KEY)
   execa('npm', ['start', 'Rome'])
   .then(result => {
     const stdoutlines = result.stdout.split('\n')
@@ -144,8 +146,6 @@ test('uat with invalid api key', done => {
   })
   .then(done)
 })
-
-test('placeholder', Function.prototype)
 
 function clearTrento () {
   return {

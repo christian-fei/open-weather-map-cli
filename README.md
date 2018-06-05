@@ -35,3 +35,11 @@ npx open-weather-map-cli Rome
 > 📖  Clear, clear sky
 > ☀️  right now
 ```
+
+## test
+
+set `OPEN_WEATHER_MAP_API_KEY` in the ENV. grab one if you need an api key https://home.openweathermap.org/api_keys 📖
+
+```
+OPEN_WEATHER_MAP_API_KEY=a21e80512cb177d08a6b06e1ee691e72 npm t
+```
