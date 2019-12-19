@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "execa": "^2.0.1",
+    "execa": "^4.0.0",
     "m.test": "0.0.58"
   }
 }
